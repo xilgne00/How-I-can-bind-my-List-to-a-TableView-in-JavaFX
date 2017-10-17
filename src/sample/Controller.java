@@ -9,6 +9,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Controller {
+
+	// kolekce Ticketu
     ObservableList<Ticket> ticketData = FXCollections.observableArrayList();
 
     @FXML
@@ -27,35 +29,27 @@ public class Controller {
     private int ticketcounter = 0;
 
     public void initialize(){
+
+    	// TableView reknete, kde cerpat data pro jednotlive sloupce
         clmID.setCellValueFactory(new PropertyValueFactory<Ticket, String>("ticketId"));
         clmTicketName.setCellValueFactory(new PropertyValueFactory<Ticket, String>("ticketName"));
         clmLastName.setCellValueFactory(new PropertyValueFactory<Ticket, String>("ticketLastName"));
         clmCategory.setCellValueFactory(new PropertyValueFactory<Ticket, String>("ticketCategory"));
         clmFirstName.setCellValueFactory(new PropertyValueFactory<Ticket, String>("ticketFirstName"));
+
+        // TableView nastavite kolekci
+        tblTicket.setItems(ticketData);
     }
-
-    //TableView wird generiert
-    private void TableViewLoad(ObservableList<Ticket> ticketData) {
-
-        tblTicket.setItems(getTicketData());
-
-    }
-
-
-    public ObservableList<Ticket> getTicketData() {
-        return ticketData;
-    }
-
 
     @FXML
     private void btnCreateTicket_Click(ActionEvent event) {
 
         ticketcounter++;
-        //Ein neues Ticket wird erstellt
+        //Vytvorime instanci Ticketu
         Ticket newticket = new Ticket();
 
-        //Ticket Parameter werden übergeben
-        String value = "some text" + ticketcounter;
+        //Vygenerujeme nejaky ticket
+        String value = "Ticket cislo " + ticketcounter;
         newticket.setTicketUsername(value);
         newticket.setTicketName(value);
         newticket.setTicketId(value);
@@ -66,8 +60,6 @@ public class Controller {
         newticket.setTicketCategory(value);
 
         ticketData.add(newticket);
-
-        TableViewLoad(ticketData);
     }
 
 }
